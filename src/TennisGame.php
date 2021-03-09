@@ -51,6 +51,10 @@ class TennisGame
                 return "Forty - Thirty";
             case [2, 3]:
                 return "Thirty - Forty";
+            case [3, 3]:
+                return "Deuce";
+            case [4, 3]:
+                return "Advantage Mikel";
         }
     }
 }

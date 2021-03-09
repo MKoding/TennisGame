@@ -17,4 +17,15 @@ class TennisGameTest extends TestCase
         $this->assertEquals("Love all", $tennisGame->getScore());
     }
 
+    /**
+     * @test
+     **/
+    public function if_game_starts_player_won_point_and_get_score_returns_Fifteen_Love()
+    {
+        $tennisGame = new TennisGame("Mikel", "Pablo");
+        $tennisGame->wonPoint("Mikel");
+
+        $this->assertEquals("Fifteen - Love", $tennisGame->getScore());
+    }
+
 }

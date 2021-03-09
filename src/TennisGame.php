@@ -37,6 +37,8 @@ class TennisGame
                 return "Love all";
             case [1, 0]:
                 return "Fifteen - Love";
+            case [0, 1]:
+                return "Love - Fifteen";
             case [1, 1]:
                 return "Fifteen all";
         }

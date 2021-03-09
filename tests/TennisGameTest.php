@@ -170,4 +170,22 @@ class TennisGameTest extends TestCase
 
         $this->assertEquals("Advantage Pablo", $tennisGame->getScore());
     }
+
+    /**
+     * @test
+     **/
+    public function if_game_score_is_4_4_returns_Deuce()
+    {
+        $tennisGame = new TennisGame("Mikel", "Pablo");
+        $tennisGame->wonPoint("Mikel");
+        $tennisGame->wonPoint("Mikel");
+        $tennisGame->wonPoint("Mikel");
+        $tennisGame->wonPoint("Mikel");
+        $tennisGame->wonPoint("Pablo");
+        $tennisGame->wonPoint("Pablo");
+        $tennisGame->wonPoint("Pablo");
+        $tennisGame->wonPoint("Pablo");
+
+        $this->assertEquals("Deuce", $tennisGame->getScore());
+    }
 }

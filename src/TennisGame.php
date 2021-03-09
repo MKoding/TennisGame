@@ -45,6 +45,8 @@ class TennisGame
                 return "Thirty - Fifteen";
             case [1, 2]:
                 return "Fifteen - Thirty";
+            case [2, 2]:
+                return "Thirty all";
         }
     }
 }

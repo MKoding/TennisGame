@@ -55,6 +55,8 @@ class TennisGame
                 return "Forty - Love";
             case [0, 3]:
                 return "Love - Forty";
+            case [3, 1]:
+                return "Forty - Fifteen";
             case [3, 2]:
                 return "Forty - Thirty";
             case [2, 3]:

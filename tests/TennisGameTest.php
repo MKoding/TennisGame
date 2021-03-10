@@ -144,6 +144,20 @@ class TennisGameTest extends TestCase
     /**
      * @test
      **/
+    public function if_game_score_is_3_1_returns_Forty_Fifteen()
+    {
+        $tennisGame = new TennisGame("Mikel", "Pablo");
+        $tennisGame->wonPoint("Mikel");
+        $tennisGame->wonPoint("Mikel");
+        $tennisGame->wonPoint("Mikel");
+        $tennisGame->wonPoint("Pablo");
+
+        $this->assertEquals("Forty - Fifteen", $tennisGame->getScore());
+    }
+
+    /**
+     * @test
+     **/
     public function if_game_score_is_3_2_returns_Forty_Thirty()
     {
         $tennisGame = new TennisGame("Mikel", "Pablo");

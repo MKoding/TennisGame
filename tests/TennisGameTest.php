@@ -246,7 +246,7 @@ class TennisGameTest extends TestCase
     /**
      * @test
      **/
-    public function if_game_score_is_4_3_returns_Advantage_Player1()
+    public function if_game_score_is_4_1_returns_Win_Player1()
     {
         $tennisGame = new TennisGame("Mikel", "Pablo");
         $tennisGame->wonPoint("Mikel");
@@ -254,8 +254,23 @@ class TennisGameTest extends TestCase
         $tennisGame->wonPoint("Mikel");
         $tennisGame->wonPoint("Mikel");
         $tennisGame->wonPoint("Pablo");
+
+        $this->assertEquals("Win Mikel", $tennisGame->getScore());
+    }
+
+    /**
+     * @test
+     **/
+    public function if_game_score_is_4_3_returns_Advantage_Player1()
+    {
+        $tennisGame = new TennisGame("Mikel", "Pablo");
+        $tennisGame->wonPoint("Mikel");
+        $tennisGame->wonPoint("Mikel");
+        $tennisGame->wonPoint("Mikel");
         $tennisGame->wonPoint("Pablo");
         $tennisGame->wonPoint("Pablo");
+        $tennisGame->wonPoint("Pablo");
+        $tennisGame->wonPoint("Mikel");
 
         $this->assertEquals("Advantage Mikel", $tennisGame->getScore());
     }

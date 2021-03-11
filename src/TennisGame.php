@@ -4,8 +4,18 @@ namespace Deg540\PHPTestingBoilerplate;
 
 class TennisGame
 {
+    private const ZERO = "Love";
+    private const ONE = "Fifteen";
+    private const TWO = "Thirty";
+    private const THREE = "Forty";
+    private const DEUCE = "Deuce";
+    private const ADVANTAGE = "Advantage";
+    private const WIN = "Win";
+
     private Player $player1;
     private Player $player2;
+
+    private bool $deuce = false;
 
     /**
      * TennisGame constructor.
@@ -21,63 +31,91 @@ class TennisGame
         switch ($playerName) {
             case $this->player1->getName():
                 $this->player1->wonPoint();
+                if (!$this->deuce && !$this->player2->getWinner() && ($this->player1->getScore() >= 4)) {
+                    $this->player1->win();
+                }
                 break;
             case $this->player2->getName():
                 $this->player2->wonPoint();
+                if (!$this->deuce && !$this->player1->getWinner() && ($this->player2->getScore() >= 4)) {
+                    $this->player2->win();
+                }
                 break;
+        }
+
+        if (!$this->player1->getWinner() && !$this->player2->getWinner()) {
+            if ($this->player1->getScore() >= 3 && ($this->player1->getScore() == $this->player2->getScore())) {
+                $this->deuce = true;
+            }
+
+            if ($this->deuce && (abs($this->player1->getScore() - $this->player2->getScore()) > 1)) {
+                $this->deuce = false;
+                if ($this->player1->getScore() > $this->player2->getScore()) {
+                    $this->player1->win();
+                } else {
+                    $this->player2->win();
+                }
+            }
         }
     }
 
     public function getScore():string {
+        $player1Win = $this->player1->getWinner();
+        $player2Win = $this->player2->getWinner();
         $player1Score = $this->player1->getScore();
         $player2Score = $this->player2->getScore();
 
-        switch ([$player1Score, $player2Score]) {
-            case [0, 0]:
-                return "Love all";
-            case [1, 0]:
-                return "Fifteen - Love";
-            case [0, 1]:
-                return "Love - Fifteen";
-            case [1, 1]:
-                return "Fifteen all";
-            case [2, 0]:
-                return "Thirty - Love";
-            case [0, 2]:
-                return "Love - Thirty";
-            case [2, 1]:
-                return "Thirty - Fifteen";
-            case [1, 2]:
-                return "Fifteen - Thirty";
-            case [2, 2]:
-                return "Thirty all";
-            case [3, 0]:
-                return "Forty - Love";
-            case [0, 3]:
-                return "Love - Forty";
-            case [3, 1]:
-                return "Forty - Fifteen";
-            case [1, 3]:
-                return "Fifteen - Forty";
-            case [3, 2]:
-                return "Forty - Thirty";
-            case [2, 3]:
-                return "Thirty - Forty";
-            case [3, 3]:
-            case [4, 4]:
-                return "Deuce";
-            case [4, 0]:
-            case [4, 1]:
-            case [4, 2]:
-                return "Win Mikel";
-            case [0, 4]:
-            case [1, 4]:
-            case [2, 4]:
-                return "Win Pablo";
-            case [4, 3]:
-                return "Advantage Mikel";
-            case [3, 4]:
-                return "Advantage Pablo";
+        $exit = "";
+        if (!$this->deuce && !$player1Win && !$player2Win) {
+            switch ($player1Score) {
+                case 0:
+                    $exit .= self::ZERO;
+                    break;
+                case 1:
+                    $exit .= self::ONE;
+                    break;
+                case 2:
+                    $exit .= self::TWO;
+                    break;
+                case 3:
+                    $exit .= self::THREE;
+                    break;
+            }
+
+            if (($player1Score == $player2Score) && $player1Score < 3) {
+                $exit .= " all";
+                return $exit;
+            } else {
+                switch ($player2Score) {
+                    case 0:
+                        $exit .= " - " . self::ZERO;
+                        return $exit;
+                    case 1:
+                        $exit .= " - " . self::ONE;
+                        return $exit;
+                    case 2:
+                        $exit .= " - " . self::TWO;
+                        return $exit;
+                    case 3:
+                        $exit .= " - " . self::THREE;
+                        return $exit;
+                }
+            }
+        } else if ($this->deuce) {
+            $difference = abs($player1Score - $player2Score);
+            if ($difference == 0) {
+                return self::DEUCE;
+            } else if ($player1Score - $player2Score > 0) {
+                return self::ADVANTAGE . " " . $this->player1->getName();
+            } else {
+                return self::ADVANTAGE . " " . $this->player2->getName();
+            }
+        } else if ($player1Win){
+            return self::WIN . " " . $this->player1->getName();
+        } else {
+            return self::WIN . " " . $this->player2->getName();
         }
+
+        return "ERROR";
     }
 }

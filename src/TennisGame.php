@@ -68,6 +68,7 @@ class TennisGame
                 return "Deuce";
             case [4, 0]:
             case [4, 1]:
+            case [4, 2]:
                 return "Win Mikel";
             case [0, 4]:
             case [1, 4]:

@@ -20,5 +20,5 @@ jobs:
         uses: php-actions/phpunit@v2
         with:
           bootstrap: vendor/autoload.php
-          configuration: test/TennisGameTest.xml
+          configuration: vendor/bin/phpunit.xml
           args: --coverage-text

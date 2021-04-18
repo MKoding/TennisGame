@@ -16,9 +16,14 @@ jobs:
           tools: composer:v2
           php-version: '8'
 
-      - name: PHPUnit Tests
-        uses: php-actions/phpunit@v2
-        with:
-          bootstrap: vendor/autoload.php
-          configuration: vendor/bin/phpunit.xml
-          args: --coverage-text
+      - name: Install project dependencies
+        run: composer install
+
+      - name: Run php lint on SRC
+        run: php -l src -q
+
+      - name: Run php lint on PHPUnit Tests
+        run: php -l tests -u
+
+      - name: Run PHPUnit Tests
+        run: ./vendor/bin/phpunit -c phpunit.xml
